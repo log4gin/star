@@ -1,92 +1,117 @@
-import re
+from lexer import token_type
 
 
-# name
-regexp_variable_name = re.compile(r"(\w+)|([/+-/*//])+|_+")
+class parser:
 
-# float
-regexp_variable_float = re.compile(r"[+-]?\d+\.\d+")
+    def __call__(self, tokens) -> list:
+        self.tokens = tokens
+        self.cursor = 0
 
-# int
-regexp_variable_int = re.compile(r"[+-]?\d+")
+        return ["begin", *(self.parse())]
 
-# str
-regexp_variable_str = re.compile(r"(^'/w*'$)")
+    @property
+    def current(self):
+        if self.cursor >= len(self.tokens):
+            return self.tokens[:-1]
+        return self.tokens[self.cursor]
 
+    def front(self, setp=1):
+        c = self.cursor - setp
+        if c < 0:
+            raise Exception("front token out of range")
+        return self.tokens[c]
 
-def parser(tokens: list) -> list:
-    ast = []
-    current = -1
+    def back(self, setp=1):
+        c = self.cursor + setp
+        if c > len(self.tokens):
+            return self.tokens[-1]
+        return self.tokens[c]
 
-    def walk() -> list | str | int | float:
-        nonlocal current
-        current += 1
-        token = tokens[current]
+    def parse(self) -> list:
+        node = []
+        while self.current.type != token_type.EOF:
+            node.append(self.work())
+        return node
 
-        # 普通数字
-        if regexp_variable_float.fullmatch(token):
-            return float(token)
-        if regexp_variable_int.fullmatch(token):
-            return int(token)
-        if isinstance(token, str) and token[0] == "'" and token[-1] == "'":
-            return token
+    def work(self) -> list | int | str | float:
+        match self.current.type:
+            case token_type.INT:
+                return self.int_literal()
+            case token_type.FLOAT:
+                return self.float_literal()
+            case token_type.STRING:
+                return self.string_literal()
 
-        if token == "var":
-            current += 1
-            name = tokens[current]
+            # 变量开头
+            case token_type.INDENTIFIER:
+                # 变量声明
+                if self.back().value == ":=":
+                    return self.var_declare()
+                # 变量修改
+                if self.back().value == "=":
+                    return self.var_assign()
+                # 函数调用
+                if self.back().value == "(":
+                    return self.var_call()
+                # 默认只有自己
+                return self.var_self()
 
-            if not regexp_variable_name.fullmatch(name):
-                raise Exception(f"Invalid variable name: {name}")
+            case token_type.KEY:
+                if self.current.value == "while":
+                    return self.while_loop()
+            case _:
+                raise Exception(f"unknow token {self.current}")
 
-            value = walk()
-            return ["var", name, value]
+    def int_literal(self) -> int:
+        value = int(self.current.value)
+        self.cursor += 1
+        return value
 
-        if token == ":":
-            return "begin"
+    def float_literal(self) -> float:
+        value = float(self.current.value)
+        self.cursor += 1
+        return value
 
-        if token == "...":
-            return []
+    def string_literal(self) -> str:
+        value = self.current.value
+        self.cursor += 1
+        return value
 
-        # name = 'me'
-        # print ( name )
-        if regexp_variable_name.fullmatch(token):
+    def var_declare(self) -> list:
+        name = self.current.value
+        self.cursor += 2
+        value = self.work()
+        return ["var", name, value]
 
-            name = token
+    def var_assign(self) -> list:
+        name = self.current.value
+        self.cursor += 2
+        value = self.work()
+        return ["assign", name, value]
 
-            current += 1
-            operator = tokens[current]
+    def var_self(self) -> str:
+        value = self.current.value
+        self.cursor += 1
+        return value
 
-            # 变量更改
-            if operator == "=":
+    def var_call(self) -> list:
+        name = self.current.value
+        self.cursor += 2
+        args = []
+        while self.current.value != ")":
+            args.append(self.work())
+        self.cursor += 1
+        return [name, *args]
 
-                current += 1
-                value = tokens[current]
+    def while_loop(self) -> list:
+        self.cursor += 1
+        condtion = self.work()
+        if self.current.value != "{":
+            raise Exception("while loop must be '{'")
 
-                if regexp_variable_float.fullmatch(value):
-                    value = float(value)
-                    return ["assign", name, value]
-
-                if regexp_variable_int.fullmatch(value):
-                    value = int(value)
-                    return ["assign", name, value]
-
-                return ["assign", token, value]
-
-            # 函数调用
-            # sub(sum(3,2),5)
-            # ["sub", ["sum", 3, 2], 5]
-            # if operator == "(":
-            #     args = []
-            #     # Parse function arguments
-            #     while tokens[current] != ")":
-            #         args.append(walk())
-            #         current += 1
-            #         # Skip the closing parenthesis
-            #         current += 1
-            #     return [name, *args]
-
-            return name
-
-    while current < len(tokens) - 1:
-        ast.append(walk())
-    return ast
+        self.cursor += 1
+        body = ["begin"]
+        while self.current.value != "}":
+            body.append(self.work())
+        self.cursor += 1
+        return ["while", condtion, body]

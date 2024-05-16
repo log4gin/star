@@ -48,10 +48,10 @@ def test4cherry():
     assert not e(["<=", 10, "ten"])
     assert e(["begin", ["assign", "ten", 10]]) == 10
 
-    # 关键字 for
+    # 关键字 while
     e(
         [
-            "for",
+            "while",
             ["!=", 0, "ten"],
             [
                 "begin",

@@ -129,6 +129,11 @@ class VM:
             return self.Env.lookup(exp)
 
         if is_list(exp):
+
+            # 空语句
+            if len(exp) == 0:
+                return None
+
             # 变量定义
             if exp[0] == "var":
                 _, name, value = exp
@@ -158,7 +163,7 @@ class VM:
                 else:
                     return self.Eval(other)
 
-            if exp[0] == "for":
+            if exp[0] == "while":
                 _, condition, body = exp
                 resoult = None
                 while self.Eval(condition):
@@ -188,10 +193,6 @@ class VM:
                 resoult = self.Eval(fn["body"])
                 self.Env = self.Env.close()
                 return resoult
-
-        # 空语句
-        if len(exp) == 0:
-            return None
 
         raise Exception(f"{exp} with Error")
 

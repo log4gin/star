@@ -1,63 +1,121 @@
-from complie import *
+from pprint import pprint as print
 
 code = """
-:
+// 变量
 
-var ten 10
+a := 1
+b := 2.1
+c := 'hello'
+d := "halo"
+e := a
 
-if > (ten,0) {
-    print (ten)
+// 函数调用
+my_func(1, 2)
+
+
+// 控制流
+
+while >(a, 0) {
+    print(a)
+    a = -(a,1)
+}
+
+if >(a,b) {
+    print(a)
 } else {
-    ...
+    print(b)
 }
 
-while > (ten, 0) {
-    print ( ten )
-    ten = - (ten ,1)
+
+// 自定义函数
+
+def my_func(a, b) {
+    a + b
 }
 
-def fibo (n) 
-:
-    if <= (n ,1) {
-        1
-    } else {
-        + (fibo(-(n,1)),fibo(-(n-2))
-    }
 
-fibo(8)
+
+...
 
 """
 
 
-def Test(code: str, ast: list):
-    tokens = code.replace(",", " ").replace("(", " ( ").replace(")", " ) ").split()
+from lexer import lexer
+from complie import parser
+
+l = lexer()
+p = parser()
+
+
+def Test(code, ast: list):
+    tokens = l(code)
     ast = ast
     try:
-        assert parser(tokens) == ast
+        assert p(tokens) == ast
     except:
         print("Error!")
         print("Want:")
-        print(ast)
+        print(ast, indent=4)
         print("Get:")
-        print(parser(tokens))
+        print(p(tokens), indent=4)
 
+
+# 字面量
+Test("1", ["begin", 1])
+Test("1.1", ["begin", 1.1])
+Test("'i am string'", ["begin", "'i am string'"])
+Test("1 2.1 'i am string'", ["begin", 1, 2.1, "'i am string'"])
 
 # 变量声明
-Test("var name 'gin' ", [["var", "name", "'gin'"]])
-
+Test("a := 1", ["begin", ["var", "a", 1]])
 # 变量修改
-Test("name = 123 ", [["assign", "name", 123]])
-
-# 代码块
-Test(":", ["begin"])
-
-# 空语句
-Test("...", [[]])
+Test("a = 2", ["begin", ["assign", "a", 2]])
+Test(
+    """
+a := 2 , a = 3
+""",
+    ["begin", ["var", "a", 2], ["assign", "a", 3]],
+)
+# 变量赋值
+Test(
+    """
+a := 2
+b := a
+""",
+    ["begin", ["var", "a", 2], ["var", "b", "a"]],
+)
 
 # 函数调用
 Test(
     """
-    sub 123 234
+    my_func(1, 2)
 """,
-    [["sub", ["sum", 3, 2], 2]],
+    ["begin", ["my_func", 1, 2]],
 )
+
+# 函数嵌套调用
+Test(
+    """
+    func_one(func_two(1, 2),3)
+""",
+    ["begin", ["func_one", ["func_two", 1, 2], 3]],
+)
+
+# 控制流 while
+Test(
+    """
+    while >(2,1) {
+        print(a)
+    }
+""",
+    [
+        "begin",
+        [
+            "while",
+            [">", 2, 1],
+            ["begin", ["print", "a"]],
+        ],
+    ],
+)
+
+print("All Test pass")
