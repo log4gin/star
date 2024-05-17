@@ -104,11 +104,11 @@ def is_dict(exp):
 
 
 # ---------------------------------------------------------------------------- #
-#                                    VM                                   #
+#                                    vm                                   #
 # ---------------------------------------------------------------------------- #
 
 
-class VM:
+class vm:
 
     def __init__(self, Env=Env.clone()) -> None:
         self.Env = Env
@@ -148,6 +148,7 @@ class VM:
 
             # 代码块
             if exp[0] == "begin":
+
                 self.Env = self.Env.next()
                 resoult = None
                 for block in exp[1:]:
@@ -207,7 +208,7 @@ if __name__ == "__main__":
     import json
 
     now = time.time()
-    c = VM()
+    c = vm()
     path = os.sys.argv[1]
 
     with open(path, "r") as f:

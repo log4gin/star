@@ -17,12 +17,11 @@ def my_func(a, b) {
 }
 
 my_func(1, 2)
-...
+
+// hi
 
 """
 
 l = lexer()
 
-# print(l(code), indent=4)
-
-print(l(' ""'))
+print(l(code), indent=4)

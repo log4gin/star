@@ -22,7 +22,7 @@ def test4envirment():
 
 
 def test4cherry():
-    e = VM(Env=Env.clone())
+    e = vm(Env=Env.clone())
     # 自省
     assert e('"hello"') == "hello"
     assert e(2233) == 2233
@@ -42,6 +42,7 @@ def test4cherry():
             ["if", ["!=", 10, "times"], ["print", '"begin has error"'], "'going'"],
         ]
     )
+
     # 内置函数变量
     assert e(["var", "ten", 10]) == 10
     assert e(["assign", "ten", ["-", "ten", 1]]) == 9
@@ -109,6 +110,17 @@ def test4cherry():
 
     assert e(["fib", 3]) == fib(3)
     e = None
+
+    # 空语句
+    b = vm()
+    assert (
+        b(
+            [
+                "begin",
+            ]
+        )
+        == None
+    )
 
 
 test4cherry()

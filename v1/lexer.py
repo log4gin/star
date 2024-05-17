@@ -25,8 +25,6 @@ class token:
 
 
 match_token = {
-    r"(\.){3}": token_type.OPERATOR,
-    "(if)|(while)|(else)|(def)": token_type.KEY,
     r"\(|\)": token_type.PARENTHESES,
     r"\{|\}": token_type.BRACE,
     r"[+-]?\d+\.\d+": token_type.FLOAT,
@@ -36,10 +34,13 @@ match_token = {
     r"//(.*)?\n|(\r\n)": token_type.BLACK,
     r"'(.*)?'": token_type.STRING,
     r'"(.*)?"': token_type.STRING,
-    "[!:=]?=": token_type.INDENTIFIER,
-    ">|<": token_type.INDENTIFIER,
+    ":?=": token_type.OPERATOR,
+    # ------------------------------------ key ----------------------------------- #
+    "(if)|(while)|(else)|(def)": token_type.KEY,
+    # -------------------------------- indetifier -------------------------------- #
     r"[a-zA-Z_]+": token_type.INDENTIFIER,
     r"[\+\-\*\/]+": token_type.INDENTIFIER,
+    r"[<>(>=)(<=)]": token_type.INDENTIFIER,
 }
 
 

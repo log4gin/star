@@ -15,12 +15,6 @@ class parser:
             return self.tokens[:-1]
         return self.tokens[self.cursor]
 
-    def front(self, setp=1):
-        c = self.cursor - setp
-        if c < 0:
-            raise Exception("front token out of range")
-        return self.tokens[c]
-
     def back(self, setp=1):
         c = self.cursor + setp
         if c > len(self.tokens):
@@ -58,7 +52,11 @@ class parser:
 
             case token_type.KEY:
                 if self.current.value == "while":
-                    return self.while_loop()
+                    return self.while_statment()
+                if self.current.value == "if":
+                    return self.if_statment()
+                if self.current.value == "def":
+                    return self.def_statment()
             case _:
                 raise Exception(f"unknow token {self.current}")
 
@@ -103,7 +101,7 @@ class parser:
         self.cursor += 1
         return [name, *args]
 
-    def while_loop(self) -> list:
+    def while_statment(self) -> list:
         self.cursor += 1
         condtion = self.work()
         if self.current.value != "{":
@@ -115,3 +113,50 @@ class parser:
             body.append(self.work())
         self.cursor += 1
         return ["while", condtion, body]
+
+    def if_statment(self) -> list:
+        self.cursor += 1
+        condition = self.work()
+        if self.current.value != "{":
+            raise Exception("if statment must be '{'")
+
+        self.cursor += 1
+        body = ["begin"]
+        while self.current.value != "}":
+            body.append(self.work())
+        else_body = ["begin"]
+        self.cursor += 1
+        if self.current.value == "else":
+            self.cursor += 1
+            if self.current.value != "{":
+                raise Exception("else statment must be '{'")
+            self.cursor += 1
+            while self.current.value != "}":
+                else_body.append(self.work())
+            self.cursor += 1
+        return ["if", condition, body, else_body]
+
+    def def_statment(self) -> list:
+        self.cursor += 1
+        if self.current.type != token_type.INDENTIFIER:
+            raise Exception("def statment name must be indentifer")
+        name = self.current.value
+        if self.back().value != "(":
+            raise Exception("def statment must be '('")
+        self.cursor += 2
+        # 参数
+        args = []
+        while self.current.value != ")":
+            arg = self.current
+            if arg.type != token_type.INDENTIFIER:
+                raise Exception("def statment arg must be indentifer")
+            args.append(arg.value)
+            self.cursor += 1
+        if self.back().value != "{":
+            raise Exception("def statment must be '{'")
+        self.cursor += 2
+        body = ["begin"]
+        while self.current.value != "}":
+            body.append(self.work())
+        self.cursor += 1
+        return ["def", name, args, body]
