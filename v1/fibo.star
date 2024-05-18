@@ -10,5 +10,8 @@ def fibonaci (n){
     }
 }
 
-a := fibonaci(3)
-print(a)
+print(now())
+// a := fibonaci(25)
+// print(a)
+
+print(now())

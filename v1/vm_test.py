@@ -52,12 +52,15 @@ def test4cherry():
     # 关键字 while
     e(
         [
-            "while",
-            ["!=", 0, "ten"],
+            "begin",
             [
-                "begin",
-                ["assign", "ten", ["-", "ten", 1]],
-                # ['print', 'ten']
+                "while",
+                ["!=", 0, "ten"],
+                [
+                    "begin",
+                    ["assign", "ten", ["-", "ten", 1]],
+                    # ['print', 'ten']
+                ],
             ],
         ]
     )

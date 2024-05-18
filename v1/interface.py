@@ -1,4 +1,10 @@
-VERSION = "1.0.0"
+VERSION = "1.0.1"
+
+
+def now() -> str:
+    from datetime import datetime
+
+    return str(datetime.now())
 
 
 interface = {
@@ -6,7 +12,6 @@ interface = {
     "false": False,
     "version": VERSION,
     "pi": 3.1415926,
-    "print": print,  # 宿主语言的函数
     "!=": lambda x, y: x != y,
     "==": lambda x, y: x == y,
     ">": lambda x, y: x > y,
@@ -17,4 +22,6 @@ interface = {
     "-": lambda x, y: x - y,
     "*": lambda x, y: x * y,
     "/": lambda x, y: x / y,
+    "print": print,
+    "now": now,
 }

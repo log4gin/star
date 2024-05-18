@@ -33,10 +33,11 @@ class Environment:
         raise Exception(f'"{name}" is not find in Environment')
 
     def clone(self):
-        return Environment(self.local.copy(), self.parent)
+        return Environment(self.local, self.parent)
 
     def next(self, local={}):
         env = self.clone()
+
         return Environment(local, env)
 
     def close(self):
