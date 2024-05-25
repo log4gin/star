@@ -39,7 +39,7 @@ def my_func(a, b) {
 
 
 from lexer import lexer
-from complie import parser
+from compile import parser
 
 l = lexer()
 p = parser()

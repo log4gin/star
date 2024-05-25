@@ -1,10 +1,22 @@
-VERSION = "1.0.1"
+VERSION = "1.1.1"
+
+VERSION_LOG = """
+1.0.0 完成 lexer compile vm
+
+1.0.1 修复 深度环境表拷贝导致无法修改外部变量
+
+1.1.1 添加 list
+"""
 
 
-def now() -> str:
+def _now() -> str:
     from datetime import datetime
 
     return str(datetime.now())
+
+
+def _list(*a) -> list:
+    return list(a)
 
 
 interface = {
@@ -23,5 +35,6 @@ interface = {
     "*": lambda x, y: x * y,
     "/": lambda x, y: x / y,
     "print": print,
-    "now": now,
+    "now": _now,
+    "list": _list,
 }
