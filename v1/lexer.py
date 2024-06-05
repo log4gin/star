@@ -32,8 +32,8 @@ match_token = {
     r"\s+": token_type.BLACK,
     r",": token_type.BLACK,
     r"//(.*)?\n|(\r\n)": token_type.BLACK,
-    r"'(.*)?'": token_type.STRING,
-    r'"(.*)?"': token_type.STRING,
+    r"'.*?'": token_type.STRING,
+    r'".*?"': token_type.STRING,
     ":?=": token_type.OPERATOR,
     # ------------------------------------ key ----------------------------------- #
     "(if)|(while)|(else)|(def)": token_type.KEY,

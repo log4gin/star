@@ -126,5 +126,23 @@ def test4cherry():
     )
 
 
+def test4table():
+    # table
+    b = vm()
+    # print(b.Env)
+    b(
+        [
+            "begin",
+            ["var", "table_name", ["table", 0, 1, 2, 3]],
+            ["table_set", "table_name", 22, 33],
+            ["table_set", "table_name", "'name'", "'gin'"],
+            ["print", ["table_get", "table_name", 22]],
+            ["print", ["table_get", "table_name", "'gin'"]],
+            ["print", ["table_get", "table_name", "'name'"]],
+        ]
+    )
+
+
 test4cherry()
 test4cherry()
+test4table()

@@ -11,7 +11,7 @@ def fibonaci (n){
 }
 
 print(now())
-// a := fibonaci(25)
-// print(a)
+a := fibonaci(25)
+print(a)
 
 print(now())
