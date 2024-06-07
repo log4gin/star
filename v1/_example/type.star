@@ -15,19 +15,14 @@ print(_int)
 _float := 2.33333333333333
 print(_float)
 
-def m (a){
-    print(a)
-}
 
 // table //
-_table := table('first','second','and more',m,_true)
-print(_table)
+t := table('star','arg1','arg2')
+table_set(t,'name','gin')
+table_get(t,'name')
 
-table_set(_table,'name','gin')
-print(table_get(_table,'name'))
+t[0] = 'assigned_name'
+t['name'] = 'star'
 
+print(t)
 
-
-
-// _table[0] = 1
-// _table[name] = 'sss'

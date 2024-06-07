@@ -47,6 +47,10 @@ class parser:
                 # 函数调用
                 if self.back().value == "(":
                     return self.var_call()
+
+                if self.back().value == "[":
+                    return self.table_sugar()
+
                 # 默认只有自己
                 return self.var_self()
 
@@ -160,3 +164,17 @@ class parser:
             body.append(self.work())
         self.cursor += 1
         return ["def", name, args, body]
+
+    def table_sugar(self) -> list:
+        table_name = self.current.value
+        self.cursor += 2
+        table_key = self.work()
+        if self.current.value != "]":
+            raise Exception("table sugar must be ']'")
+        # set table
+        if self.back().value == "=":
+            self.cursor += 2
+            table_value = self.work()
+            return ["table_set", table_name, table_key, table_value]
+        self.cursor += 1
+        return ["table_get", table_name, table_key]

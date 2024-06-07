@@ -1,17 +1,18 @@
-VERSION = "1.1.1"
-
-
 VERSION_LOG = """
 1.0.0 完成 lexer compile vm
 
 1.0.1 修复 深度环境表拷贝导致无法修改外部变量
 
 1.1.1 添加 table
+
+1.2.0 添加 table 语法糖 2024年6月7日
 """
+
+VERSION = VERSION_LOG.split("\n")[-2].split()[0]
 
 
 # ---------------------------------------------------------------------------- #
-#                                 buid-in table ype                                 #
+#                                 buid-in table type                           #
 # ---------------------------------------------------------------------------- #
 class table:
     def __init__(self, *arry) -> None:
@@ -56,6 +57,7 @@ def _now() -> str:
 
 
 interface = {
+    "nil": None,
     "true": True,
     "false": False,
     "version": VERSION,
