@@ -3,16 +3,18 @@ VERSION_LOG = """
 
 1.0.1 修复 深度环境表拷贝导致无法修改外部变量
 
-1.1.1 添加 table
+1.1.0 添加 table
 
-1.2.0 添加 table 语法糖 2024年6月7日
+1.2.0 添加 table 语法糖 
+
+1.3.0 添加 load 多文件编程 
 """
 
 VERSION = VERSION_LOG.split("\n")[-2].split()[0]
 
 
 # ---------------------------------------------------------------------------- #
-#                                 buid-in table type                           #
+#                                 build-in table type                           #
 # ---------------------------------------------------------------------------- #
 class table:
     def __init__(self, *arry) -> None:
@@ -46,6 +48,28 @@ def _table_get(t: table, name):
 
 
 # ---------------------------------------------------------------------------- #
+#                                    package                                   #
+# ---------------------------------------------------------------------------- #
+
+
+def _load(path) -> int | str | float | table:
+    from lexer import lexer
+    from compile import parser
+    from vm import vm
+
+    l = lexer()
+    p = parser()
+    v = vm()
+
+    with open(path, "r", encoding="utf-8") as f:
+        tokens = l(f.read())
+        ast = p(tokens)
+        resout = v(ast)
+
+        return resout
+
+
+# ---------------------------------------------------------------------------- #
 #                                other function                                #
 # ---------------------------------------------------------------------------- #
 
@@ -54,6 +78,10 @@ def _now() -> str:
     from datetime import datetime
 
     return str(datetime.now())
+
+
+def _panic(exception):
+    raise Exception(exception)
 
 
 interface = {
@@ -77,4 +105,6 @@ interface = {
     "table": _table_init,
     "table_set": _table_set,
     "table_get": _table_get,
+    "load": _load,
+    "panic": _panic,
 }
