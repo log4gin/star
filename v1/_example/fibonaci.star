@@ -1,10 +1,10 @@
 def fibonaci (n){
-    if < (n,1){
+    if lt (n,1){
         1
     }else{
-        + (
-            fibonaci(-(n,1))
-            fibonaci(-(n,2))
+        add (
+            fibonaci(sub (n,1))
+            fibonaci(sub (n,2))
         )
     }
 }

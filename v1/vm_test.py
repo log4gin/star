@@ -39,14 +39,14 @@ def test4cherry():
         [
             "begin",
             ["var", "times", 10],
-            ["if", ["!=", 10, "times"], ["print", '"begin has error"'], "'going'"],
+            ["if", ["ne", 10, "times"], ["print", '"begin has error"'], "'going'"],
         ]
     )
 
     # 内置函数变量
     assert e(["var", "ten", 10]) == 10
-    assert e(["assign", "ten", ["-", "ten", 1]]) == 9
-    assert not e(["<=", 10, "ten"])
+    assert e(["assign", "ten", ["sub", "ten", 1]]) == 9
+    assert not e(["lt", 9, "ten"])
     assert e(["begin", ["assign", "ten", 10]]) == 10
 
     # 关键字 while
@@ -55,10 +55,10 @@ def test4cherry():
             "begin",
             [
                 "while",
-                ["!=", 0, "ten"],
+                ["ne", 0, "ten"],
                 [
                     "begin",
-                    ["assign", "ten", ["-", "ten", 1]],
+                    ["assign", "ten", ["sub", "ten", 1]],
                     # ['print', 'ten']
                 ],
             ],
@@ -68,24 +68,22 @@ def test4cherry():
     # 用户函数
     e.Env = Environment(
         {
-            "+": lambda x, y: x + y,
-            "-": lambda x, y: x - y,
-            "*": lambda x, y: x * y,
-            "/": lambda x, y: x / y,
-            ">": lambda x, y: x > y,
-            "<": lambda x, y: x < y,
+            "add": lambda x, y: x + y,
+            "sub": lambda x, y: x - y,
+            "rt": lambda x, y: x > y,
+            "lt": lambda x, y: x < y,
         }
     )
 
-    e(["def", "add", ["x", "y"], ["+", "x", "y"]])
-    assert e(["add", 2, 3]) == 5
+    e(["def", "my_add", ["x", "y"], ["add", "x", "y"]])
+    assert e(["my_add", 2, 3]) == 5
 
     e.Env = Environment(
         {
-            "+": lambda x, y: x + y,
-            "-": lambda x, y: x - y,
-            ">": lambda x, y: x > y,
-            "<": lambda x, y: x < y,
+            "add": lambda x, y: x + y,
+            "sub": lambda x, y: x - y,
+            "rt": lambda x, y: x > y,
+            "lt": lambda x, y: x < y,
         }
     )
 
@@ -98,9 +96,9 @@ def test4cherry():
                 "begin",
                 [
                     "if",
-                    ["<", "n", 2],
+                    ["lt", "n", 2],
                     1,
-                    ["+", ["fib", ["-", "n", 1]], ["fib", ["-", "n", 2]]],
+                    ["add", ["fib", ["sub", "n", 1]], ["fib", ["sub", "n", 2]]],
                 ],
             ],
         ]

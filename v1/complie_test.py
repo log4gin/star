@@ -15,12 +15,12 @@ my_func(1, 2)
 
 // 控制流
 
-while >(a, 0) {
+while rt(a, 0) {
     print(a)
     a = -(a,1)
 }
 
-if >(a,b) {
+if rt(a,b) {
     print(a)
 } else {
     print(b)
@@ -102,7 +102,7 @@ Test(
 # 控制流 while
 Test(
     """
-    while >(2,1) {
+    while rt(2,1) {
         print(a)
     }
 """,
@@ -110,7 +110,7 @@ Test(
         "begin",
         [
             "while",
-            [">", 2, 1],
+            ["rt", 2, 1],
             ["begin", ["print", "a"]],
         ],
     ],

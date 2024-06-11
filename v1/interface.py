@@ -8,6 +8,8 @@ VERSION_LOG = """
 1.2.0 添加 table 语法糖 
 
 1.3.0 添加 load 多文件编程 
+
+1.4.0 修改 +-*/ 为表达式而不是函数
 """
 
 VERSION = VERSION_LOG.split("\n")[-2].split()[0]
@@ -90,16 +92,12 @@ interface = {
     "false": False,
     "version": VERSION,
     "pi": 3.1415926,
-    "!=": lambda x, y: x != y,
-    "==": lambda x, y: x == y,
-    ">": lambda x, y: x > y,
-    "<": lambda x, y: x < y,
-    ">=": lambda x, y: x >= y,
-    "<=": lambda x, y: x <= y,
-    "+": lambda x, y: x + y,
-    "-": lambda x, y: x - y,
-    "*": lambda x, y: x * y,
-    "/": lambda x, y: x / y,
+    "ne": lambda x, y: x != y,
+    "eq": lambda x, y: x == y,
+    "rt": lambda x, y: x > y,
+    "lt": lambda x, y: x < y,
+    "add": lambda x, y: x + y,
+    "sub": lambda x, y: x - y,
     "print": print,
     "now": _now,
     "table": _table_init,

@@ -17,12 +17,13 @@ class token_type(Enum):
 
 
 class token:
-    def __init__(self, type, value) -> None:
+    def __init__(self, type, value, line="unknow") -> None:
         self.type = type
         self.value = value
+        self.line = line
 
     def __repr__(self) -> str:
-        return f"type[{self.type}] --> value[{self.value}]"
+        return f"type[{self.type}] --> value[{self.value}] in line {self.line}"
 
 
 match_token = {
@@ -36,13 +37,14 @@ match_token = {
     r"//(.*)?\n|(\r\n)": token_type.BLACK,
     r"'.*?'": token_type.STRING,
     r'".*?"': token_type.STRING,
-    ":?=": token_type.OPERATOR,
+    # ---------------------------------- operaor --------------------------------- #
+    r":?=": token_type.OPERATOR,
+    r"[\+\-\*\/]+": token_type.OPERATOR,
+    r"[<>(>=)(<=)]": token_type.OPERATOR,
     # ------------------------------------ key ----------------------------------- #
     "(if)|(while)|(else)|(def)": token_type.KEY,
     # -------------------------------- indetifier -------------------------------- #
     r"[a-zA-Z_]+": token_type.INDENTIFIER,
-    r"[\+\-\*\/]+": token_type.INDENTIFIER,
-    r"[<>(>=)(<=)]": token_type.INDENTIFIER,
 }
 
 
@@ -63,7 +65,7 @@ class lexer:
             if t.type != token_type.BLACK:
                 self.tokens.append(t)
 
-        self.tokens.append(token(type=token_type.EOF, value="eof"))
+        self.tokens.append(token(type=token_type.EOF, value="eof", line=self.line))
         return self.tokens
 
     def lex(self) -> token:
@@ -81,7 +83,7 @@ class lexer:
                 if type == token_type.BLACK:
                     self.line += value.group(0).count("\n")
 
-                return token(type=type, value=value.group(0))
+                return token(type=type, value=value.group(0), line=self.line)
 
         if not flag:
             raise Exception(
