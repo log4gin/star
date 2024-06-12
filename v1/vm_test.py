@@ -39,7 +39,7 @@ def test4cherry():
         [
             "begin",
             ["var", "times", 10],
-            ["if", ["ne", 10, "times"], ["print", '"begin has error"'], "'going'"],
+            ["if", ["neq", 10, "times"], ["print", '"begin has error"'], "'going'"],
         ]
     )
 
@@ -55,7 +55,7 @@ def test4cherry():
             "begin",
             [
                 "while",
-                ["ne", 0, "ten"],
+                ["neq", 0, "ten"],
                 [
                     "begin",
                     ["assign", "ten", ["sub", "ten", 1]],
@@ -70,7 +70,7 @@ def test4cherry():
         {
             "add": lambda x, y: x + y,
             "sub": lambda x, y: x - y,
-            "rt": lambda x, y: x > y,
+            "gt": lambda x, y: x > y,
             "lt": lambda x, y: x < y,
         }
     )
@@ -82,7 +82,7 @@ def test4cherry():
         {
             "add": lambda x, y: x + y,
             "sub": lambda x, y: x - y,
-            "rt": lambda x, y: x > y,
+            "gt": lambda x, y: x > y,
             "lt": lambda x, y: x < y,
         }
     )

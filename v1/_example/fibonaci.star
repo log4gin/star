@@ -1,10 +1,11 @@
 def fibonaci (n){
-    if lt (n,1){
+    if lt (n,2){
         1
     }else{
-        add (
-            fibonaci(sub (n,1))
-            fibonaci(sub (n,2))
+         (
+            fibonaci((n - 1))
+            +
+            fibonaci((n - 2))
         )
     }
 }
@@ -12,8 +13,11 @@ def fibonaci (n){
 
 print(now())
 
-a := fibonaci(25)
+times := 0
 
-print(a)
+while lt (times, 15) {
+    print(fibonaci(times))
+    times++
+}
 
 print(now())

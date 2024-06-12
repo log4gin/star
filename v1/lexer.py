@@ -6,8 +6,6 @@ class token_type(Enum):
     KEY = "key"
     INDENTIFIER = "indentifier"
     OPERATOR = "operator"
-    PARENTHESES = "parenthese"
-    BRACE = "brace"
     BRACKETS = "brackets"
     FLOAT = "float"
     INT = "int"
@@ -27,9 +25,7 @@ class token:
 
 
 match_token = {
-    r"\(|\)": token_type.PARENTHESES,
-    r"\{|\}": token_type.BRACE,
-    r"\[|\]": token_type.BRACKETS,
+    r"\(|\)|\{|\}|\[|\]": token_type.BRACKETS,
     r"[+-]?\d+\.\d+": token_type.FLOAT,
     r"[+-]?\d+": token_type.INT,
     r"\s+": token_type.BLACK,

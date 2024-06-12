@@ -51,6 +51,9 @@ class parser:
                 if self.back().value == "[":
                     return self.table_sugar()
 
+                if self.back().value == "++":
+                    return self.self_add_sugar()
+
                 # 默认只有自己
                 return self.var_self()
 
@@ -61,6 +64,16 @@ class parser:
                     return self.if_statment()
                 if self.current.value == "def":
                     return self.def_statment()
+
+            # 括号开头
+            case token_type.BRACKETS:
+                if self.current.value == "(":
+                    return self.expression_sugar()
+
+            # 操作开头
+            case token_type.OPERATOR:
+                return self.operator_literal()
+
             case _:
                 raise Exception(f"unknow token {self.current}")
 
@@ -75,6 +88,11 @@ class parser:
         return value
 
     def string_literal(self) -> str:
+        value = self.current.value
+        self.cursor += 1
+        return value
+
+    def operator_literal(self) -> str:
         value = self.current.value
         self.cursor += 1
         return value
@@ -178,3 +196,51 @@ class parser:
             return ["table_set", table_name, table_key, table_value]
         self.cursor += 1
         return ["table_get", table_name, table_key]
+
+    def expression_sugar(self) -> list:
+        self.cursor += 1
+        operations = []
+        elements = ["("]
+        while not (self.current.value == ")" and len(operations) == 0):
+            element = self.work()
+            if isinstance(element, str) and element in r"+-*/":
+                operations.append(element)
+            else:
+                elements.append(element)
+
+            # 完成一个函数转换
+            if self.current.value == ")":
+                args = []
+                while True:
+                    arg = elements.pop()
+                    if arg == "(":
+                        break
+                    args.append(arg)
+
+                # 反转为正常顺序
+                args.reverse()
+                if len(operations) == 0:
+                    elements.append(args)
+                else:
+                    function_name = operations.pop()
+                    match function_name:
+                        case "*":
+                            function_name = "mul"
+                        case "/":
+                            function_name = "div"
+                        case "-":
+                            function_name = "sub"
+                        case "+":
+                            function_name = "add"
+                        case _:
+                            raise Exception(f"unknow function name {function_name}")
+
+                    elements.append([function_name, *args])
+
+        self.cursor += 1
+        return elements.pop()
+
+    def self_add_sugar(self) -> list:
+        value = self.current.value
+        self.cursor += 2
+        return ["assign", value, ["add", value, 1]]

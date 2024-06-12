@@ -28,5 +28,7 @@ t[0] = 'assigned_name'
 t['name'] = 'star'
 print(t)
 
+print('version:' version)
+
 // package export
 t 

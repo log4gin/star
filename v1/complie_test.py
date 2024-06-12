@@ -1,42 +1,5 @@
 from pprint import pprint as print
 
-code = """
-// 变量
-
-a := 1
-b := 2.1
-c := 'hello'
-d := "halo"
-e := a
-
-// 函数调用
-my_func(1, 2)
-
-
-// 控制流
-
-while rt(a, 0) {
-    print(a)
-    a = -(a,1)
-}
-
-if rt(a,b) {
-    print(a)
-} else {
-    print(b)
-}
-
-
-// 自定义函数
-
-def my_func(a, b) {
-    a + b
-}
-
-
-
-"""
-
 
 from lexer import lexer
 from compile import parser
@@ -114,6 +77,14 @@ Test(
             ["begin", ["print", "a"]],
         ],
     ],
+)
+
+
+Test(
+    """
+    (a + b)
+""",
+    ["begin", ["add", "a", "b"]],
 )
 
 print("All Test pass")
