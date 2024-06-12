@@ -201,9 +201,23 @@ class parser:
         self.cursor += 1
         operations = []
         elements = ["("]
+
+        conver_map = {
+            "*": "mul",
+            "/": "div",
+            "-": "sub",
+            "+": "add",
+            ">": "gt",
+            "<": "lt",
+            ">=": "gte",
+            "<=": "lte",
+            "==": "eq",
+            "!=": "neq",
+        }
+
         while not (self.current.value == ")" and len(operations) == 0):
             element = self.work()
-            if isinstance(element, str) and element in r"+-*/":
+            if isinstance(element, str) and element in conver_map.keys():
                 operations.append(element)
             else:
                 elements.append(element)
@@ -223,18 +237,7 @@ class parser:
                     elements.append(args)
                 else:
                     function_name = operations.pop()
-                    match function_name:
-                        case "*":
-                            function_name = "mul"
-                        case "/":
-                            function_name = "div"
-                        case "-":
-                            function_name = "sub"
-                        case "+":
-                            function_name = "add"
-                        case _:
-                            raise Exception(f"unknow function name {function_name}")
-
+                    function_name = conver_map[function_name]
                     elements.append([function_name, *args])
 
         self.cursor += 1

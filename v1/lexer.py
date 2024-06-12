@@ -30,13 +30,14 @@ match_token = {
     r"[+-]?\d+": token_type.INT,
     r"\s+": token_type.BLACK,
     r",": token_type.BLACK,
-    r"//(.*)?\n|(\r\n)": token_type.BLACK,
+    r"//.*\n|(\r\n)": token_type.BLACK,
     r"'.*?'": token_type.STRING,
     r'".*?"': token_type.STRING,
     # ---------------------------------- operaor --------------------------------- #
+    r"(>=)|(<=)|(!=)|(==)": token_type.OPERATOR,
     r":?=": token_type.OPERATOR,
     r"[\+\-\*\/]+": token_type.OPERATOR,
-    r"[<>(>=)(<=)]": token_type.OPERATOR,
+    r"<|>": token_type.OPERATOR,
     # ------------------------------------ key ----------------------------------- #
     "(if)|(while)|(else)|(def)": token_type.KEY,
     # -------------------------------- indetifier -------------------------------- #
