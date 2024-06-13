@@ -82,9 +82,26 @@ Test(
 
 Test(
     """
-    (a + b)
+    (a + b + c - 1)
 """,
-    ["begin", ["add", "a", "b"]],
+    ["begin", ["add", "a", ["add", "b", ["sub", "c", 1]]]],
 )
+
+
+Test(
+    """
+    (a)
+""",
+    ["begin", "a"],
+)
+
+
+Test(
+    """
+    (a(1) + 9 + (b)  - 7)
+""",
+    ["begin", ["add", ["a", 1], ["add", 9, ["sub", "b", 7]]]],
+)
+
 
 print("All Test pass")

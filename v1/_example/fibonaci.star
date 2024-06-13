@@ -1,5 +1,5 @@
 def fibonaci (n){
-    if lt (n,2){
+    if  (n < 2){
         1
     }else{
          (
@@ -15,7 +15,7 @@ print(now())
 
 times := 0
 
-while lt (times, 15) {
+while (times < 15) {
     print(fibonaci(times))
     times++
 }

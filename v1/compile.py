@@ -201,7 +201,6 @@ class parser:
         self.cursor += 1
         operations = []
         elements = ["("]
-
         conver_map = {
             "*": "mul",
             "/": "div",
@@ -224,21 +223,21 @@ class parser:
 
             # 完成一个函数转换
             if self.current.value == ")":
-                args = []
                 while True:
+
+                    if len(elements) == 0:
+                        break
+
                     arg = elements.pop()
                     if arg == "(":
                         break
-                    args.append(arg)
 
-                # 反转为正常顺序
-                args.reverse()
-                if len(operations) == 0:
-                    elements.append(args)
-                else:
-                    function_name = operations.pop()
-                    function_name = conver_map[function_name]
-                    elements.append([function_name, *args])
+                    another_arg = elements.pop()
+                    if another_arg == "(":
+                        elements.append(arg)
+                        break
+
+                    elements.append([conver_map[operations.pop()], another_arg, arg])
 
         self.cursor += 1
         return elements.pop()
