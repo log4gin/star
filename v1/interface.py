@@ -5,7 +5,7 @@ VERSION_LOG = """
 
 1.1.0 添加 table
 
-1.2.0 添加 table 语法糖 
+1.2.0 添加 table 语法糖 []
 
 1.3.0 添加 load 多文件编程 
 
@@ -14,6 +14,8 @@ VERSION_LOG = """
 1.5.0 添加 +-*/ 表达式语法糖
 
 1.5.1 修复 +-*/ 不能连续使用 比如 (a + b + c * d )
+
+1.6.0 添加 tbale 语法糖 .
 """
 
 VERSION = VERSION_LOG.split("\n")[-2].split()[0]

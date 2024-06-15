@@ -22,15 +22,27 @@ print(_float)
 
 // table 
 t := table('star','arg1','arg2')
+
 table_set(t,'name','gin')
+
 table_get(t,'name')
+
+// table sugar
+
 t[0] = 'assigned_name'
 t['name'] = 'star'
+t['ok'] =  def ok (){'i am ok '}
+
 print(t)
 
-print('version:' version)
+t.0 = 666
+t.name = 'new_star'
+
+print(t)
+
+
 
 // package export
 t 
 
-
+ 

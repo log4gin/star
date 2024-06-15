@@ -51,6 +51,9 @@ class parser:
                 if self.back().value == "[":
                     return self.table_sugar()
 
+                if self.back().value == ".":
+                    return self.table_point_sugar()
+
                 if self.back().value == "++":
                     return self.self_add_sugar()
 
@@ -194,6 +197,28 @@ class parser:
             self.cursor += 2
             table_value = self.work()
             return ["table_set", table_name, table_key, table_value]
+        # get table
+        self.cursor += 1
+        return ["table_get", table_name, table_key]
+
+    def table_point_sugar(self) -> list:
+        table_name = self.current.value
+        self.cursor += 2
+
+        # 判断key是数字还是变量名
+        if self.current.type == token_type.INT:
+            table_key = int(self.current.value)
+        elif self.current.type == token_type.INDENTIFIER:
+            table_key = "'" + str(self.current.value) + "'"
+        else:
+            raise Exception("table key must be indentifer or number")
+
+        # set table
+        if self.back().value == "=":
+            self.cursor += 2
+            table_value = self.work()
+            return ["table_set", table_name, table_key, table_value]
+        # get table
         self.cursor += 1
         return ["table_get", table_name, table_key]
 

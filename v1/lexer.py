@@ -37,7 +37,7 @@ match_token = {
     r"(>=)|(<=)|(!=)|(==)": token_type.OPERATOR,
     r":?=": token_type.OPERATOR,
     r"[\+\-\*\/]+": token_type.OPERATOR,
-    r"<|>": token_type.OPERATOR,
+    r"<|>|\.": token_type.OPERATOR,
     # ------------------------------------ key ----------------------------------- #
     "(if)|(while)|(else)|(def)": token_type.KEY,
     # -------------------------------- indetifier -------------------------------- #
