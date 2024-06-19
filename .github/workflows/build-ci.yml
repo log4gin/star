@@ -1,9 +1,8 @@
 name: Nuitka Build
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
+
 
 jobs:
   build:
@@ -24,7 +23,12 @@ jobs:
         pip install nuitka
 
     - name: Build executable
-      run: |
+      run: |name: Nuitka Build
+
+on:
+  workflow_dispatch:
+
+
         python -m nuitka --onefile v1/star.py --output-dir=ubuntu --output-filename=star.bin
         
     - name: Upload artifact
