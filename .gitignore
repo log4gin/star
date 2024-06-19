@@ -1,2 +1,5 @@
-
+*.zip
 *.pyc
+*.spec
+v1/build
+v1/dist

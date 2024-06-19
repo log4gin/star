@@ -33,6 +33,9 @@ class table:
     def __str__(self) -> str:
         return "table:" + str(self.table)
 
+    def __len__(self) -> int:
+        return len(self.table)
+
     def get(self, name):
         if name in self.table:
             return self.table[name]
@@ -92,6 +95,10 @@ def _panic(exception):
     raise Exception(exception)
 
 
+def _len(any: str | table) -> int:
+    return len(any)
+
+
 interface = {
     "nil": None,
     "true": True,
@@ -115,4 +122,5 @@ interface = {
     "table_get": _table_get,
     "load": _load,
     "panic": _panic,
+    "len": _len,
 }
