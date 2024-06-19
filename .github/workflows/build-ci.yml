@@ -1,25 +1,11 @@
 name: Nuitka Build
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
-        include:
-          - os: ubuntu-latest
-            ext: .bin
-          - os: macos-latest
-            ext: .bin
-          - os: windows-latest
-            ext: .exe
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout repository
@@ -37,10 +23,10 @@ jobs:
 
     - name: Build executable
       run: |
-        python -m nuitka --onefile v1/star.py --output-dir=dist --output-filename=star${{ matrix.ext }}
+        python -m nuitka --onefile v1/star.py --output-dir=ubuntu --output-filename=star.bin
         
     - name: Upload artifact
       uses: actions/upload-artifact@v3
       with:
-        name: star-${{ matrix.os }}
-        path: dist/star${{ matrix.ext }}
+        name: star-ubuntu
+        path: ubuntu/star.bin
