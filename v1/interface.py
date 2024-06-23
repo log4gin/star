@@ -16,6 +16,8 @@ VERSION_LOG = """
 1.5.1 修复 +-*/ 不能连续使用 比如 (a + b + c * d )
 
 1.6.0 添加 tbale 语法糖 .
+
+1.6.1 修复 中文注释编码问题
 """
 
 VERSION = VERSION_LOG.split("\n")[-2].split()[0]

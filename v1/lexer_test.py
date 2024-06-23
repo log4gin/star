@@ -3,7 +3,7 @@ from pprint import pprint as print
 
 code = """a := 1 // i am comment
 b := 2.1
-c := 'hello'
+c := 'hello' // 我是中文
 d := "halo"
 
 if a > b {
@@ -22,7 +22,7 @@ my_func(1, 2)
 
 >=
 
-
+// 黑
 """
 
 l = lexer()

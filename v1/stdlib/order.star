@@ -15,13 +15,13 @@ order.max = def _ (t) {
 
 order.choose = def _ (t){
 
-    // init 
+    // 初始化
     n := len(t)
     i := 0 
     min_idx := i
     j := (i + 1)
 
-    // logic
+    // 逻辑部分
     while (i < n) {
         min_idx = i
         j = ( i + 1 )  
@@ -43,7 +43,7 @@ order.choose = def _ (t){
     t  
 }
 
-// end with  it for export
+// 导出为包
 
 order
 

@@ -205,10 +205,8 @@ class parser:
         table_name = self.current.value
         self.cursor += 2
 
-        # 判断key是数字还是变量名
-        if self.current.type == token_type.INT:
-            table_key = int(self.current.value)
-        elif self.current.type == token_type.INDENTIFIER:
+        # 判断key是变量名
+        if self.current.type == token_type.INDENTIFIER:
             table_key = "'" + str(self.current.value) + "'"
         else:
             raise Exception("table key must be indentifer or number")

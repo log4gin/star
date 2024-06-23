@@ -1,6 +1,6 @@
 order := load('stdlib/order.star')
 
-max := order.max
+max := order.max // 我是中文
 
 print(max(table(1,2,3,4)))
 
