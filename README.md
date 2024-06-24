@@ -49,6 +49,17 @@ def _fuction (arg0,arg1){
 _function(22,33)
 ```
 
+### 函数重载
+
+```
+def eq(a,b) {
+    'reload success'
+}
+
+print(( 1 == 100 ))
+
+```
+
 ### 循环
 
 ```
@@ -73,7 +84,7 @@ if true {
 ```
 // 这是唯一的数据结构
 // 可以实现 数组 字典 包
-t := table()
+t := table(0,1,2,3,4,5,6,7)
 t.name = 'star'
 print(t.name)
 ```
@@ -122,4 +133,4 @@ echo dC5tZS9sb2c0Z2luIA0K | python -m base64 -d
 
 如果有什么问题欢迎 issue 。
 
-如果能够自己 PR ，那么是再好不过了 :)。
+如果能够自己 PR ，那是再好不过 :)。
