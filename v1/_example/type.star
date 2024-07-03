@@ -35,7 +35,7 @@ t['ok'] =  def ok (){'i am ok '}
 
 print(t)
 
-t.0 = 666
+t[0] = 666
 t.name = 'new_star'
 
 print(t)
