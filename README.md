@@ -160,14 +160,3 @@ star -v file_path.json
 你甚至可以使用 star 开发插件系统，这也是我学习 lua 的原因，但是 lua 里面有太多和
 其他语言不同的地方了，这也是 star 诞生的原因。
 
-## 获取技术支持
-
-我的联系方式是
-
-```bash
-echo dC5tZS9sb2c0Z2luIA0K | python -m base64 -d
-```
-
-如果有什么问题欢迎 issue 。
-
-如果能够自己 PR ，那是再好不过 :)。
