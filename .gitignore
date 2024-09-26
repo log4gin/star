@@ -3,6 +3,14 @@
 *.spec
 *.txt
 
-starpy/build
-starpy/dist
-starpy.egg-info/
+*.gz
+*.whl
+*.spec
+
+*info*
+
+build/
+dist/
+
+
+

@@ -1,16 +1,5 @@
 # STAR
 
-## 安装
-
-### 使用 pip
-
-需要安装 git。
-
-```
-pip install git+https://github.com/log4gin/star.git
-```
-
-
 ## 介绍
 
 很高兴为大家介绍这门小型编程语言，事实上这并不是我第一次尝试自己纯手动制作编程语
@@ -32,6 +21,26 @@ table 也是多文件编程的基础。
 
 总之，这是一门比 lua 还小的语言，源码加上测试代码目前在 1,000 行左右，希望你玩得
 开心。
+
+## 安装
+
+### 使用 pip
+
+pypi 安装
+
+```
+pip install star4py
+```
+
+github 安装 (需要有 git 环境)
+
+```
+pip install git+https://github.com/log4gin/star.git
+```
+
+### 直接下载
+
+在 relese 里面直接下载
 
 ## 语法
 
@@ -135,7 +144,6 @@ a := 108
 
 更多的语法使用在 [v1/\_example](./starpy/_example/) 里面。
 
-
 ### 查看帮助
 
 ```bash
@@ -158,6 +166,13 @@ star -c file_path.star
 
 ```bash
 star -v file_path.json
+```
+
+### 作为一个类似于 lua 的库使用
+
+```
+import starpy
+
 ```
 
 ## 意义

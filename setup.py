@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="starpy",
+    name="star4py",
     version="1.7.0",
     description="自己的编程语言，再小也可以发光",
     author="Gin",
