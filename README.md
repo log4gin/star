@@ -122,7 +122,7 @@ a := 108
 
 ### 更多
 
-更多的语法使用在 [v1/\_example](./v1/_example/) 里面。
+更多的语法使用在 [v1/\_example](./starpy/_example/) 里面。
 
 ## 安装
 
