@@ -40,7 +40,8 @@ pip install git+https://github.com/log4gin/star.git
 
 ### 直接下载
 
-在 relese 里面直接下载
+在 [relese](https://github.com/log4gin/star/releases/download/v1.7.0/star.exe)
+里面直接下载
 
 ## 语法
 
