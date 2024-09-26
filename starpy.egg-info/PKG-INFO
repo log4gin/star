@@ -1,9 +1,0 @@
-Metadata-Version: 2.1
-Name: starpy
-Version: 1.7.0
-Summary: 自己的编程语言，再小也可以发光
-Home-page: https://github.com/log4gin/star
-Author: Gin
-Author-email: log4gin@gmail.com
-Requires-Python: >=3.10
-License-File: LICENSE

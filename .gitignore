@@ -1,6 +1,8 @@
 *.zip
 *.pyc
 *.spec
+*.txt
+
 v1/build
 v1/dist
-star.egg-info/
+starpy.egg-info/
