@@ -128,13 +128,11 @@ a := 108
 
 ### 使用 pip
 
+需要安装 git。
+
 ```
 pip install git+https://github.com/log4gin/star.git
 ```
-
-### 直接使用 exe
-
-在 relese 里面请自行下载。
 
 ### 查看帮助
 

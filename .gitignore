@@ -3,6 +3,6 @@
 *.spec
 *.txt
 
-v1/build
-v1/dist
+starpy/build
+starpy/dist
 starpy.egg-info/
