@@ -1,5 +1,16 @@
 # STAR
 
+## 安装
+
+### 使用 pip
+
+需要安装 git。
+
+```
+pip install git+https://github.com/log4gin/star.git
+```
+
+
 ## 介绍
 
 很高兴为大家介绍这门小型编程语言，事实上这并不是我第一次尝试自己纯手动制作编程语
@@ -124,15 +135,6 @@ a := 108
 
 更多的语法使用在 [v1/\_example](./starpy/_example/) 里面。
 
-## 安装
-
-### 使用 pip
-
-需要安装 git。
-
-```
-pip install git+https://github.com/log4gin/star.git
-```
 
 ### 查看帮助
 
@@ -160,4 +162,4 @@ star -v file_path.json
 
 ## 意义
 
-这门编程语言自己说了算。
+just for fun
