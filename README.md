@@ -27,30 +27,32 @@ table 也是多文件编程的基础。
 ### 变量声明和修改
 
 ```
-_int := 0
-_float := 0.1
-_string := 'hi' // _string := "hi" 同样适用
-_table := table(_int,_float,_string)
+age := 18
+hight := 175.2
+name := 'Gin' // name := "Gin" 同样适用
+person := table(name,age,hight)
 
-_int = 100 //这就是变量修改了
+age = 999 //这就是变量修改了
 ```
 
 ### 函数声明
 
 ```
-def _fuction (arg0,arg1){
-	print(arg0,arg1)
-	arg0 //默认会返回最后一个值作为返回值
+def sya_hi (name){
+	print('hello',name)
+	name
+	//默认会返回最后一个值作为返回值
+	//name 等于 return name
 }
 ```
 
 ### 函数调用
 
 ```
-_function(22,33)
+say_hi('Gin')
 ```
 
-### 函数重载
+### 操作符重载
 
 ```
 def eq(a,b) {
@@ -76,7 +78,7 @@ while (times < 100){
 
 ```
 if true {
-	print('star is not lua')
+	print('i am not lua')
 }
 ```
 
@@ -105,7 +107,7 @@ print(choose(table(33,22,44,123,321,2024)))
 
 ```
 
-### 特性
+### 还没解决的问题(特性)
 
 ```
 // 表达式必须添加一个 ()
@@ -120,16 +122,24 @@ a := 108
 
 ### 更多
 
-更多的语法使用在 v1/\_example 里面
+更多的语法使用在 [v1/\_example](./v1/_example/) 里面。
 
-## 如何运行
+## 安装
 
-下载 发行版本里面的 star.exe
+### 使用 pip
+
+```
+pip install git+https://github.com/log4gin/star.git
+```
+
+### 直接使用 exe
+
+在 relese 里面请自行下载。
 
 ### 查看帮助
 
 ```bash
-star.exe -h
+star -h
 ```
 
 ### 直接运行 star 文件
@@ -150,13 +160,6 @@ star -c file_path.star
 star -v file_path.json
 ```
 
-## 用途
+## 意义
 
-你可以使用自己编程语言刷 leetcode ，自己 diy 自己喜欢的语法
-
-你可以把它作为其他编程语言的缺陷的弥补，比如 golang 的错误处理不怎么样，你完全可
-以把错误传给 star 处理完全后给你结果。
-
-你甚至可以使用 star 开发插件系统，这也是我学习 lua 的原因，但是 lua 里面有太多和
-其他语言不同的地方了，这也是 star 诞生的原因。
-
+这门编程语言自己说了算。

@@ -3,3 +3,4 @@
 *.spec
 v1/build
 v1/dist
+star.egg-info/

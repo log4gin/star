@@ -46,7 +46,7 @@ class Environment:
         return self.parent
 
 
-from interface import VERSION, interface
+from .interface import VERSION, interface
 
 Env = Environment(local=interface)
 

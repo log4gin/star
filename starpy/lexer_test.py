@@ -1,4 +1,4 @@
-from lexer import *
+from .lexer import *
 from pprint import pprint as print
 
 code = """a := 1 // i am comment

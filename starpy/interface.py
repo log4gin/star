@@ -18,6 +18,8 @@ VERSION_LOG = """
 1.6.0 添加 tbale 语法糖 .
 
 1.6.1 修复 中文注释编码问题
+
+1.7.0 添加 pip包支持
 """
 
 VERSION = VERSION_LOG.split("\n")[-2].split()[0]
@@ -66,9 +68,9 @@ def _table_get(t: table, name):
 
 
 def _load(path) -> int | str | float | table:
-    from lexer import lexer
-    from compile import parser
-    from vm import vm
+    from .lexer import lexer
+    from .compile import parser
+    from .vm import vm
 
     l = lexer()
     p = parser()

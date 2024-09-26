@@ -1,4 +1,4 @@
-from vm import *
+from .vm import *
 
 
 # ------------------------------ test4envirment ------------------------------ #

@@ -1,7 +1,7 @@
 import argparse
-from lexer import lexer
-from compile import parser
-from vm import vm
+from .lexer import lexer
+from .compile import parser
+from .vm import vm
 import json
 
 

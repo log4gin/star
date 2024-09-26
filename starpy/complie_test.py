@@ -1,8 +1,8 @@
 from pprint import pprint as print
 
 
-from lexer import lexer
-from compile import parser
+from .lexer import lexer
+from .compile import parser
 
 l = lexer()
 p = parser()
