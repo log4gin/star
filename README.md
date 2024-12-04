@@ -35,12 +35,12 @@ pip install star4py
 github 安装 (需要有 git 环境)
 
 ```
-pip install git+https://github.com/log4gin/star.git
+pip install git+https://github.com/tomygin/star.git
 ```
 
 ### 直接下载
 
-在 [relese](https://github.com/log4gin/star/releases/download/v1.7.0/star.exe)
+在 [relese](https://github.com/tomygin/star/releases/download/v1.7.0/star.exe)
 里面直接下载
 
 ## 语法
