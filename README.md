@@ -168,14 +168,3 @@ star -c file_path.star
 ```bash
 star -v file_path.json
 ```
-
-### 作为一个类似于 lua 的库使用
-
-```
-import starpy
-
-```
-
-## 意义
-
-just for fun
