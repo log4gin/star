@@ -151,15 +151,17 @@ a := 108
 star -h
 ```
 
+### 下载后以 python 模块运行
+
+```bash
+# 在 starpy 目录下输入
+python -m starpy.star:main() # 类似于安装后输入star
+```
+
 ### 直接运行 star 文件
 
 ```bash
 star file_path.star
-
-#OR Python模块的方式
-
-python -m starpy.star:main()
-
 ```
 
 ### 编译为语法树
