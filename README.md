@@ -155,6 +155,11 @@ star -h
 
 ```bash
 star file_path.star
+
+#OR Python模块的方式
+
+python -m starpy.star:main()
+
 ```
 
 ### 编译为语法树
