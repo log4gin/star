@@ -20,6 +20,8 @@ VERSION_LOG = """
 1.6.1 修复 中文注释编码问题
 
 1.7.0 添加 pip包支持
+
+1.8.0 添加 eval,copy,ptr 函数
 """
 
 VERSION = VERSION_LOG.split("\n")[-2].split()[0]
@@ -68,6 +70,16 @@ def _table_get(t: table, name):
 
 
 def _load(path) -> int | str | float | table:
+    with open(path, "r", encoding="utf-8") as f:
+        return _eval(f.read())
+
+
+# ---------------------------------------------------------------------------- #
+#                                 magic fuction                                #
+# ---------------------------------------------------------------------------- #
+
+
+def _eval(source: str) -> int | str | float | table:
     from .lexer import lexer
     from .compile import parser
     from .vm import vm
@@ -76,12 +88,11 @@ def _load(path) -> int | str | float | table:
     p = parser()
     v = vm()
 
-    with open(path, "r", encoding="utf-8") as f:
-        tokens = l(f.read())
-        ast = p(tokens)
-        resout = v(ast)
+    tokens = l(source)
+    ast = p(tokens)
+    resout = v(ast)
 
-        return resout
+    return resout
 
 
 # ---------------------------------------------------------------------------- #
@@ -101,6 +112,15 @@ def _panic(exception):
 
 def _len(any: str | table) -> int:
     return len(any)
+
+
+def _copy(t: table) -> table:
+    m = t.table
+    return table(*m.values())
+
+
+def _ptr(any) -> str:
+    return hex(id(any))
 
 
 interface = {
@@ -127,4 +147,7 @@ interface = {
     "load": _load,
     "panic": _panic,
     "len": _len,
+    "copy": _copy,
+    "eval": _eval,
+    "ptr": _ptr,
 }
