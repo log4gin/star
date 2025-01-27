@@ -249,8 +249,20 @@ class parser:
         operations = []
         elements = []
         is_operation = False
-        rank = ["mul", "add", "sub"]  # 操作符号的优先级
-
+        # rank = ["mul", "add", "sub"]  # 操作符号的优先级
+        conver_map = {
+            "*": "mul",
+            "/": "div",
+            "-": "sub",
+            "+": "add",
+            ">": "gt",
+            "<": "lt",
+            ">=": "gte",
+            "<=": "lte",
+            "==": "eq",
+            "!=": "neq",
+        }
+        rank = conver_map.values()
         while self.current.value != ")":
             # 解析一个元素
             ele = self.work()
