@@ -96,7 +96,25 @@ class parser:
         return value
 
     def operator_literal(self) -> str:
+        # 转换操作为函数变量
         value = self.current.value
+
+        conver_map = {
+            "*": "mul",
+            "/": "div",
+            "-": "sub",
+            "+": "add",
+            ">": "gt",
+            "<": "lt",
+            ">=": "gte",
+            "<=": "lte",
+            "==": "eq",
+            "!=": "neq",
+        }
+
+        if value in conver_map.keys():
+            value = conver_map[value]
+
         self.cursor += 1
         return value
 
@@ -220,52 +238,58 @@ class parser:
         self.cursor += 1
         return ["table_get", table_name, table_key]
 
-    def expression_sugar(self) -> list:
-        self.cursor += 1
-        operations = []
-        elements = ["("]
-        conver_map = {
-            "*": "mul",
-            "/": "div",
-            "-": "sub",
-            "+": "add",
-            ">": "gt",
-            "<": "lt",
-            ">=": "gte",
-            "<=": "lte",
-            "==": "eq",
-            "!=": "neq",
-        }
-
-        while not (self.current.value == ")" and len(operations) == 0):
-            element = self.work()
-            if isinstance(element, str) and element in conver_map.keys():
-                operations.append(element)
-            else:
-                elements.append(element)
-
-            # 完成一个函数转换
-            if self.current.value == ")":
-                while True:
-
-                    if len(elements) == 0:
-                        break
-
-                    arg = elements.pop()
-                    if arg == "(":
-                        break
-
-                    another_arg = elements.pop()
-                    if another_arg == "(":
-                        elements.append(arg)
-                        break
-
-                    elements.append([conver_map[operations.pop()], another_arg, arg])
-
-        self.cursor += 1
-        return elements.pop()
-
     def self_add_sugar(self) -> list:
         value = self.current.value
         self.cursor += 2
         return ["assign", value, ["add", value, 1]]
+
+    def expression_sugar(self) -> list:
+        # 这里只处理 () 一个括号，嵌套括号使用递归再调用自己
+        self.cursor += 1
+        operations = []
+        elements = []
+        is_operation = False
+        rank = ["mul", "add", "sub"]  # 操作符号的优先级
+
+        while self.current.value != ")":
+            # 解析一个元素
+            ele = self.work()
+            # 判断是不是操作符
+            if is_operation:
+                operations.append(ele)
+            else:
+                elements.append(ele)
+
+            is_operation = not is_operation
+
+        """
+        [+,*]
+        [2,2,5]
+
+        * 2 5
+
+        [+]
+
+        [2,[*,2,5]]
+
+
+
+        """
+
+        # 按照优先级构建
+        while len(operations) > 0:
+            # 找出最大的操作符的位置
+            index = 0
+            while index < len(operations):
+                if operations[index] in rank:
+                    break
+                index += 1
+
+            # 开始构建
+            op = operations.pop(index)
+            left = elements.pop(index)
+            right = elements.pop(index)
+            elements.insert(index, [op, left, right])
+
+        self.cursor += 1
+        return elements.pop()

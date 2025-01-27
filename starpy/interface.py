@@ -22,6 +22,8 @@ VERSION_LOG = """
 1.7.0 添加 pip包支持
 
 1.8.0 添加 eval,copy,ptr 函数
+
+1.9.0 添加优先级 支持 (a + b ) * c, 同时将表达式转化为函数，一切皆函数
 """
 
 VERSION = VERSION_LOG.split("\n")[-2].split()[0]
