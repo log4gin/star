@@ -297,6 +297,9 @@ class parser:
                     break
                 index += 1
 
+            if index == len(operations):
+                raise Exception("unknow operation, not in  operations ")
+
             # 开始构建
             op = operations.pop(index)
             left = elements.pop(index)
